@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/depts")
 @RestController
 public class DeptController {
 
@@ -17,7 +18,7 @@ public class DeptController {
 
     //@RequestMapping(value = "/depts",method = RequestMethod.GET)
     /*根据更新时间的倒序获取部门数据*/
-    @GetMapping("/depts")
+    @GetMapping
     public Result list(){
         System.out.println("查询全部的部门数据");
         List<Dept> deptList = deptService.findAll();
@@ -26,17 +27,31 @@ public class DeptController {
     /**
      * 根据id删除部门 - delete http://localhost:8080/depts?id=1
      */
-    @DeleteMapping("/depts")
+    @DeleteMapping
     public Result delete(Integer id){
         System.out.println("根据id删除部门，id = " + id);
         deptService.deleteById(id);
         return Result.success();
     }
 
-    @PostMapping("/depts")
+    @PostMapping
     public Result add(@RequestBody Dept dept){
         System.out.println("新增部门:"+dept);
         deptService.add(dept);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable Integer id){
+        System.out.println("根据id查询部门信息，id = " + id);
+        Dept dept = deptService.getById(id);
+        return Result.success(dept);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody Dept dept){
+        System.out.println("更新部门信息"+dept);
+        deptService.update(dept);
         return Result.success();
     }
 
