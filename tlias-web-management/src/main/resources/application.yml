@@ -4,10 +4,10 @@ spring:
     name: tlias-web-management
   #配置数据库的连接信息
   datasource:
-    url: jdbc:mysql://localhost:3306/tlias?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/tilas?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
+    password: 12345678
 #mybatis的相关配置
 mybatis:
   configuration:
