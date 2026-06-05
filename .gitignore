@@ -2,8 +2,7 @@
 .idea/
 *.iml
 
-# Git 文件夹（不需要提交）
-.git/
+
 
 # Java 编译产物
 target/
@@ -16,3 +15,8 @@ build/
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# maven临时文件
+*.original
+# 环境配置（可选）
+*.env

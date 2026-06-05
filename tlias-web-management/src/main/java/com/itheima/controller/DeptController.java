@@ -3,11 +3,13 @@ package com.itheima.controller;
 import com.itheima.pojo.Dept;
 import com.itheima.pojo.Result;
 import com.itheima.service.DeptService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/depts")
 @RestController
 public class DeptController {
@@ -20,8 +22,9 @@ public class DeptController {
     /*根据更新时间的倒序获取部门数据*/
     @GetMapping
     public Result list(){
-        System.out.println("查询全部的部门数据");
+        //System.out.println("查询全部的部门数据");
         List<Dept> deptList = deptService.findAll();
+        log.info("查询全部的部门数据：{}",deptList);
         return Result.success(deptList);
     }
     /**
@@ -29,28 +32,28 @@ public class DeptController {
      */
     @DeleteMapping
     public Result delete(Integer id){
-        System.out.println("根据id删除部门，id = " + id);
+        log.info("根据id删除部门，id = {}" , id);
         deptService.deleteById(id);
         return Result.success();
     }
 
     @PostMapping
     public Result add(@RequestBody Dept dept){
-        System.out.println("新增部门:"+dept);
+        log.info("新增部门：{}",dept);
         deptService.add(dept);
         return Result.success();
     }
 
     @GetMapping("/{id}")
     public Result getInfo(@PathVariable Integer id){
-        System.out.println("根据id查询部门信息，id = " + id);
+        log.info("根据id查询部门信息，id = {}", id);
         Dept dept = deptService.getById(id);
         return Result.success(dept);
     }
 
     @PutMapping
     public Result update(@RequestBody Dept dept){
-        System.out.println("更新部门信息"+dept);
+        log.info("更新部门信息：{}",dept);
         deptService.update(dept);
         return Result.success();
     }
