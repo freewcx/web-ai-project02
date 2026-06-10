@@ -7,7 +7,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageResult<T> {
     private Long total;
-    private List<T> row;
+    private List<T> rows;
 }

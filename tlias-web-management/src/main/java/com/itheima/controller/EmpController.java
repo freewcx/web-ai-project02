@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/emps")
 public class EmpController {
 
-    @GetMapping()
-    public Result page(Integer page, Integer pageSize){
+    @Autowired
+    private EmpService empService;
 
+    @GetMapping()
+    public Result page(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize){
+        log.info("page: {}, pageSize: {}", page, pageSize);
+        PageResult<Emp> pageResult = empService.page(page, pageSize);
+        return Result.success(pageResult);
     }
 
 }
