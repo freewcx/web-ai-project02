@@ -11,6 +11,7 @@ import com.itheima.pojo.PageResult;
 import com.itheima.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
@@ -44,6 +45,7 @@ public class EmpServiceimpl implements EmpService {
 
     }
 
+    @Transactional
     @Override
     public void save(Emp emp){
 

@@ -15,3 +15,7 @@ mybatis:
 #    开启了驼峰命名映射的开关 输入camel（骆驼->驼峰命名）会有提示
     map-underscore-to-camel-case: true
 
+#配置事务管理日志级别
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
