@@ -19,3 +19,14 @@ mybatis:
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+#文件上传配置
+upload:
+  type: local  # local:本地存储, oss:阿里云OSS存储
+
+#阿里云OSS配置
+aliyun:
+  oss:
+    endpoint: https://oss-cn-hangzhou.aliyuncs.com  # OSS访问端点，根据实际区域修改
+    bucket-name: your-bucket-name  # 替换为你的Bucket名称
+    region: cn-hangzhou  # Bucket所在区域
