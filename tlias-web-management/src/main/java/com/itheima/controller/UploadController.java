@@ -1,6 +1,7 @@
 package com.itheima.controller;
 
 import com.itheima.pojo.Result;
+import com.itheima.utils.AliyunOSSOperator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,12 +17,12 @@ import java.util.UUID;
 @RestController
 public class UploadController {
 
-    private static final String UPLOAD_DIR = "D:/images/";
-    
+    //private static final String UPLOAD_DIR = "D:/images/";
+
     /**
      * 上传文件（支持本地存储和阿里云OSS）
      */
-    @PostMapping("/upload")
+/*    @PostMapping("/upload")
     public Result upload(MultipartFile file) throws Exception {
         log.info("上传文件：{}" ,file);
         if (!file.isEmpty()) {
@@ -40,6 +41,18 @@ public class UploadController {
             file.transferTo(targetFile);
         }
         return Result.success();
+    }*/
+
+    @Autowired
+    private AliyunOSSOperator aliyunOSSOperator;
+
+    @PostMapping("/upload")
+    public Result upload(MultipartFile file) throws Exception {
+        log.info("上传文件：{}", file.getOriginalFilename());
+
+        String url = aliyunOSSOperator.upload(file.getBytes(), file.getOriginalFilename());
+        return Result.success(url);
+
     }
 }
 
