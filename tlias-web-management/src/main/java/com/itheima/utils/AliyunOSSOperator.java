@@ -4,20 +4,30 @@ import com.aliyun.oss.*;
 import com.aliyun.oss.common.auth.CredentialsProviderFactory;
 import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+
 @Component
 public class AliyunOSSOperator {
 
-    private String endpoint = "https://oss-cn-beijing.aliyuncs.com";
-    private String bucketName = "heima-java-web-ai-2026";
-    private String region = "cn-beijing";
+    @Autowired
+    private AliyunOSSProperties aliyunOSSProperties;
+
+
+
 
     public String upload(byte[] content, String originalFilename) throws Exception {
+
+
+        String endpoint = aliyunOSSProperties.getEndpoint();
+        String bucketName = aliyunOSSProperties.getBucketName();
+        String region = aliyunOSSProperties.getRegion();
+
         // 从环境变量中获取访问凭证。运行本代码示例之前，请确保已设置环境变量OSS_ACCESS_KEY_ID和OSS_ACCESS_KEY_SECRET。
         EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
 
