@@ -43,4 +43,6 @@ public interface EmpMapper {
     void deleteByIds(List<Integer> ids);
 
 
+    //根据id查询员工信息及员工经历信息
+    Emp getById(Integer id);
 }

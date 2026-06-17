@@ -79,5 +79,10 @@ public class EmpServiceimpl implements EmpService {
         //2.批量删除员工工作经历
         empExprMapper.deleteByEmpIds(ids);
     }
+
+    @Override
+    public Emp getById(Integer id) {
+        return empMapper.getById(id);
+    }
 }
 
