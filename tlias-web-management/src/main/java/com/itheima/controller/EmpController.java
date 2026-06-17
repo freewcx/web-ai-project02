@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/emps")
@@ -39,4 +42,18 @@ public class EmpController {
         return Result.success();
     }
 
+    /*用数组接收请求参数不需要加@RequestParam注解*/
+    /*@DeleteMapping()
+    public Result delete(Integer[] ids){
+        log.info("删除员工“{}", Arrays.toString(ids));
+        return Result.success();
+    }*/
+
+    //用集合需要加注解
+    @DeleteMapping()
+    public Result delete(@RequestParam List<Integer> ids){
+        log.info("删除员工“{}", ids);
+        empService.delete(ids);
+        return Result.success();
+    }
 }
