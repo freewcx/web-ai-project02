@@ -7,6 +7,7 @@ import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.*;
 import com.itheima.service.EmpLogService;
 import com.itheima.service.EmpService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 public class EmpServiceimpl implements EmpService {
 
@@ -102,6 +104,21 @@ public class EmpServiceimpl implements EmpService {
             exprList.forEach(empExpr->empExpr.setEmpId(emp.getId()));
         }
         empExprMapper.insertBatch(exprList);
+    }
+
+    @Override
+    public LoginInfo login(Emp emp) {
+        //根据用户名和密码查询用户信息
+        Emp e = empMapper.selectByUsernameAndPassword(emp);
+
+        //判断是否有用户信息，若有组装返回的员工信息，若无返回null给Controller层，用于info的null判定，再有Controller返回error给前端
+        if(e!=null){
+            //token是令牌，也是返回给前端的LoginInfo员工信息的属性，但是员工Emp里是没有的，sql是拿不到这个不存在的token的，所以返回的员工信息e里没有这个token的get方法
+            //但是返回给前端的员工登录信息LofinInfo是需要这个属性的，所以暂时给他赋值为空字符串
+            log.info("登录成功，员工信息：{}",e);
+            return new LoginInfo(e.getId(),e.getUsername(),e.getName(),"");
+        }
+        return null;
     }
 }
 
