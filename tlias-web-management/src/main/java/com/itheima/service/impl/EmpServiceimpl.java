@@ -7,6 +7,8 @@ import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.*;
 import com.itheima.service.EmpLogService;
 import com.itheima.service.EmpService;
+import com.itheima.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -116,7 +120,12 @@ public class EmpServiceimpl implements EmpService {
             //token是令牌，也是返回给前端的LoginInfo员工信息的属性，但是员工Emp里是没有的，sql是拿不到这个不存在的token的，所以返回的员工信息e里没有这个token的get方法
             //但是返回给前端的员工登录信息LofinInfo是需要这个属性的，所以暂时给他赋值为空字符串
             log.info("登录成功，员工信息：{}",e);
-            return new LoginInfo(e.getId(),e.getUsername(),e.getName(),"");
+            Map<String,Object> dataMap = new HashMap<>();
+            dataMap.put("id",e.getId());
+            dataMap.put("username",e.getUsername());
+
+            String jwt = JwtUtils.generateJwt(dataMap);
+            return new LoginInfo(e.getId(),e.getUsername(),e.getName(),jwt);
         }
         return null;
     }
